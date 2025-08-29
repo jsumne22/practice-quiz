@@ -54,6 +54,70 @@ const questions = [
             yaxis: {range: [0, 12], title: 'y'},
             color: 'blue'
         }
+    },
+    // Q4
+    {
+        type: 'text',
+        question: 'What is the slope of the line that passes through the points (7, -8) and (-2, 4)?',
+        answer: '-1.333',
+        plot: {
+            type: 'points-line',
+            points: [
+                {x: 7, y: -8},
+                {x: -2, y: 4}
+            ],
+            xaxis: {range: [-12, 12], title: 'x'},
+            yaxis: {range: [-12, 12], title: 'y'},
+            color: 'blue'
+        }
+    },
+    // Q5
+    {
+        type: 'text',
+        question: 'What is the slope of the line that passes through the points (-9, 10) and (5, -6)?',
+        answer: '-1.143',
+        plot: {
+            type: 'points-line',
+            points: [
+                {x: -9, y: 10},
+                {x: 5, y: -6}
+            ],
+            xaxis: {range: [-12, 12], title: 'x'},
+            yaxis: {range: [-12, 12], title: 'y'},
+            color: 'blue'
+        }
+    },
+    // Q6
+    {
+        type: 'text',
+        question: 'What is the slope of the line that passes through the points (10, -3) and (-4, 7)?',
+        answer: '-0.714',
+        plot: {
+            type: 'points-line',
+            points: [
+                {x: 10, y: -3},
+                {x: -4, y: 7}
+            ],
+            xaxis: {range: [-12, 12], title: 'x'},
+            yaxis: {range: [-12, 12], title: 'y'},
+            color: 'blue'
+        }
+    },
+    // Q7
+    {
+        type: 'text',
+        question: 'What is the slope of the line that passes through the points (-8, -10) and (6, 2)?',
+        answer: '0.857',
+        plot: {
+            type: 'points-line',
+            points: [
+                {x: -8, y: -10},
+                {x: 6, y: 2}
+            ],
+            xaxis: {range: [-12, 12], title: 'x'},
+            yaxis: {range: [-12, 12], title: 'y'},
+            color: 'blue'
+        }
     }
 ];
 
