@@ -74,7 +74,8 @@ function renderQuiz() {
         } else if (q.type === 'text') {
             html += `<input type="text" id="q${idx}" name="q${idx}" required />`;
         }
-        // Add a container for the solution/feedback
+        // Add a submit button and a container for the solution/feedback
+        html += `<button type="button" class="question-submit" data-idx="${idx}">Submit</button>`;
         html += `<div class="solution" id="solution${idx}"></div>`;
         div.innerHTML = html;
         form.appendChild(div);
@@ -82,32 +83,25 @@ function renderQuiz() {
 }
 
 
-function gradeQuiz(event) {
-    event.preventDefault();
+
+function gradeQuestion(idx) {
+    const q = questions[idx];
     const form = document.getElementById('quiz-form');
-    let score = 0;
-    questions.forEach((q, idx) => {
-        let userAnswer = '';
-        if (q.type === 'multiple-choice') {
-            const radios = form.querySelectorAll(`input[name="q${idx}"]`);
-            radios.forEach(radio => { if (radio.checked) userAnswer = radio.value; });
-        } else {
-            userAnswer = form[`q${idx}`].value.trim();
-        }
-        const isCorrect = userAnswer === q.answer;
-        if (isCorrect) score++;
-        // Show solution/feedback under each question
-        const solutionDiv = document.getElementById(`solution${idx}`);
-        if (solutionDiv) {
-            solutionDiv.innerHTML = `<div class="${isCorrect ? 'correct' : 'incorrect'}">`
-                + `Your answer: ${userAnswer} <br>`
-                + `Correct answer: ${q.answer}`
-                + `</div>`;
-        }
-    });
-    const scoreHTML = `<div id="quiz-score">${score} / ${questions.length}</div>`;
-    document.getElementById('result').innerHTML = scoreHTML;
-    document.getElementById('submit-btn').disabled = true;
+    let userAnswer = '';
+    if (q.type === 'multiple-choice') {
+        const radios = form.querySelectorAll(`input[name="q${idx}"]`);
+        radios.forEach(radio => { if (radio.checked) userAnswer = radio.value; });
+    } else {
+        userAnswer = form[`q${idx}`].value.trim();
+    }
+    const isCorrect = userAnswer === q.answer;
+    const solutionDiv = document.getElementById(`solution${idx}`);
+    if (solutionDiv) {
+        solutionDiv.innerHTML = `<div class="${isCorrect ? 'correct' : 'incorrect'}">`
+            + `Your answer: ${userAnswer} <br>`
+            + `Correct answer: ${q.answer}`
+            + `</div>`;
+    }
 }
 
 function renderPlots() {
@@ -153,5 +147,10 @@ function renderPlots() {
 document.addEventListener('DOMContentLoaded', () => {
     renderQuiz();
     setTimeout(renderPlots, 0);
-    document.getElementById('quiz-form').addEventListener('submit', gradeQuiz);
+    document.getElementById('quiz-form').addEventListener('click', function(e) {
+        if (e.target.classList.contains('question-submit')) {
+            const idx = parseInt(e.target.getAttribute('data-idx'));
+            gradeQuestion(idx);
+        }
+    });
 });
